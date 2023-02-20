@@ -50,6 +50,7 @@ bincode.workspace = true
 clap.workspace = true
 dirs.workspace = true
 dunce.workspace = true
+encoding_rs = "0.8.32"
 fastrand.workspace = true
 glob.workspace = true
 ouroboros.workspace = true

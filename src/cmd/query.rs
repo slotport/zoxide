@@ -8,6 +8,8 @@ use crate::db::{Database, Epoch, Stream};
 use crate::error::BrokenPipeHandler;
 use crate::util::{self, Fzf, FzfChild};
 
+use encoding_rs;
+
 impl Run for Query {
     fn run(&self) -> Result<()> {
         let mut db = crate::db::Database::open()?;
@@ -55,7 +57,12 @@ impl Query {
                 });
             };
             let dir = if self.score { dir.display().with_score(now) } else { dir.display() };
-            writeln!(handle, "{dir}").pipe_exit("stdout")?;
+            //writeln!(handle, "{dir}").pipe_exit("stdout")?;
+
+            // convert dir to SHIFT_JIS
+            let utf8_dir = format!("{dir}");
+            let (sjis_dir, _, _)= encoding_rs::SHIFT_JIS.encode(&utf8_dir);
+            handle.write_all(&sjis_dir)?;
         }
 
         Ok(())
