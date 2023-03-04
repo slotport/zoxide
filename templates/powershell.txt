@@ -9,7 +9,7 @@
 function __zoxide_bin {
     $encoding = [Console]::OutputEncoding
     try {
-        [Console]::OutputEncoding = [System.Text.Utf8Encoding]::new()
+        # [Console]::OutputEncoding = [System.Text.Utf8Encoding]::new()
         $result = zoxide @args
         return $result
     } finally {
